@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuandikov Xursand</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth;}
+body{line-height:1.6;color:#fff;background:#000;transition:0.5s;}
+a{text-decoration:none;color:inherit;}
+header{width:100%;background:#1a1a2e;position:fixed;top:0;z-index:100;transition:0.5s;}
+.navbar{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;color:#fff;flex-wrap:wrap;}
+.logo{font-size:1.5rem;font-weight:700;color:#00d4ff;}
+.nav-links{list-style:none;display:flex;gap:2rem;}
+.nav-links li a{font-weight:500;transition:0.3s;}
+.nav-links li a:hover{color:#00d4ff;}
+.burger{display:none;flex-direction:column;cursor:pointer;gap:5px;}
+.burger div{width:25px;height:3px;background:#fff;border-radius:2px;transition:0.3s;}
+.hero{height:100vh;position:relative;display:flex;justify-content:center;align-items:center;text-align:center;color:#fff;padding:0 2rem;transition:0.5s;}
+#particles-js{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;}
+.hero-text{position:relative;z-index:1;max-width:800px;}
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    margin-left: 20px;       /* chapga siljitish */
+    white-space: pre-wrap;   /* matn bir qatordan oshsa keyingi qatorga tushadi */
+    word-wrap: break-word;   /* uzun so‘zlarni bo‘lib chiqaradi */
+    overflow: visible;       /* hech narsa kesilmaydi */
+    line-height: 1.2;        /* satr balandligi */
+}
+
+/* Responsiv uchun */
+@media (max-width:768px){
+    .hero h1 {
+        font-size: 2rem;
+        margin-left: 15px;
+    }
+}
+@media (max-width:480px){
+    .hero h1 {
+        font-size: 1.6rem;
+        margin-left: 10px;
+    }
+}
+
+.hero p{font-size:1.2rem;margin-bottom:2rem;opacity:0;transition:opacity 1s ease-in-out;}
+.btn{display:inline-block;padding:0.8rem 2rem;background:linear-gradient(45deg,#ff512f,#dd2476);color:#fff;border-radius:50px;font-weight:600;transition:0.3s;box-shadow:0 5px 15px rgba(0,0,0,0.3);cursor:pointer;}
+.btn:hover{background:linear-gradient(45deg,#dd2476,#ff512f);transform:translateY(-3px);}
+section{padding:6rem 2rem;opacity:0;transform:translateY(50px);transition:all 0.8s ease-out;}
+section.show{opacity:1;transform:translateY(0);}
+.about,.subjects,.contact,.game{max-width:1200px;margin:0 auto;text-align:center;}
+.subject-cards,.game-cards{display:flex;justify-content:space-around;flex-wrap:wrap;margin-top:2rem;gap:1rem;}
+.card{background:#211f1f;padding:2rem;border-radius:20px;flex:1 1 250px;transition:transform 0.3s,box-shadow 0.3s,background 0.5s;position:relative;}
+.card:hover{transform:scale(1.05);box-shadow:0 15px 30px rgba(0,0,0,0.3);}
+.card i{margin-bottom:1rem;color:#dd2476;}
+.card::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;border-radius:20px;background:linear-gradient(45deg,rgba(255,81,47,0.2),rgba(221,36,118,0.2));opacity:0;transition:0.3s;}
+.card:hover::before{opacity:1;}
+form{display:flex;flex-direction:column;gap:1rem;max-width:500px;margin:0 auto;}
+input,textarea{padding:0.8rem;border:1px solid #ccc;border-radius:10px;font-size:1rem;resize:none;}
+textarea{height:120px;}
+footer{background:#1a1a2e;color:#fff;text-align:center;padding:1rem;transition:0.5s;}
+#topBtn{position:fixed;bottom:30px;right:30px;display:none;padding:0.8rem 1rem;border:none;border-radius:50%;background:#ff512f;color:#fff;font-size:1.2rem;cursor:pointer;box-shadow:0 5px 15px rgba(0,0,0,0.3);transition:transform 0.3s;}
+#topBtn:hover{transform:scale(1.1);}
+.gradient-theme .hero{
+  background:url('./images/fon.jpg') center/cover no-repeat fixed;
+}
+.gradient-theme{
+  background: linear-gradient(120deg, #495057, #6c757d, #343a40);
+  color:#f8f9fa !important;
+}
+.gradient-theme .hero h1,
+.gradient-theme .hero p{
+  color:#f8f9fa !important;
+}
+.gradient-theme .card{
+  background: linear-gradient(120deg, #343a40, #495057, #6c757d);
+  color:#f8f9fa;
+}
+.gradient-theme header{
+  background: linear-gradient(120deg, #343a40, #495057, #6c757d);
+}
+.gradient-theme footer{
+  background: linear-gradient(120deg, #495057, #343a40, #6c757d);
+}
+.gradient-theme .btn{
+  color:#f8f9fa;
+  box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+/* MEDIA QUERIES */
+@media (max-width:992px){
+.hero h1{font-size:2.5rem;}
+.hero p{font-size:1.1rem;}
+.subject-cards,.game-cards{flex-direction:column;align-items:center;}
+}
+@media (max-width:768px){
+.nav-links{position:fixed;top:0;right:0;height:100vh;width:70%;background:#1a1a2e;flex-direction:column;align-items:center;justify-content:center;transform:translateX(100%);transition:transform 0.3s ease-in-out;gap:2rem;z-index:99;}
+.nav-links.active{transform:translateX(0);}
+.burger{display:flex;}
+.btn.dark-toggle{position:fixed;top:20px;right:20px;z-index:100;padding:0.5rem 0.8rem;font-size:0.9rem;}
+.hero h1{font-size:2rem;}
+.hero p{font-size:1rem;}
+}
+@media (max-width:480px){
+.hero h1{font-size:1.6rem;}
+.hero p{font-size:0.9rem;}
+.btn{padding:0.6rem 1.5rem;font-size:0.9rem;}
+}
+.game-popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);justify-content:center;align-items:center;z-index:9999;flex-direction:column;color:#fff;padding:2rem;text-align:center;}
+.game-popup.active{display:flex;}
+.game-popup button{margin-top:1rem;cursor:pointer;}
+
+</style>
+</head>
+<body>
+<header>
+<nav class="navbar">
+  <div class="logo">Xursand</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#subjects">Subjects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="burger"><div></div><div></div><div></div></div>
+  <button id="themeBtn" class="btn dark-toggle">Gradient Theme</button>
+</nav>
+</header>
+
+<section id="home" class="hero">
+<div id="particles-js"></div>
+<div class="hero-text">
+  <h1></h1>
+  <p>Curiosity is the wick in the candle of learning.</p>
+  <a href="https://t.me/KuandikovXursand" target="_blank" class="btn">Go to Telegram</a>
+</div>
+</section>
+
+<section id="about" class="about">
+<h2>About</h2>
+<p id="aboutText">    Welcome to my personal learning hub! This website is created to inspire curiosity and support interactive education.  
+    Here, you can explore your favorite subjects, solve challenging problems, and strengthen your skills through engaging exercises.  
+    Each section is carefully designed to provide both educational content and fun activities.  
+    From mathematics to languages, you will find lessons, mini-games, and resources that make learning exciting.  
+    The goal is to combine knowledge with enjoyment, helping you grow academically while keeping the process interactive and motivating.  
+    Dive in, challenge yourself, and discover new ways to learn every day!</p>
+</section>
+
+<section id="subjects" class="subjects">
+<h2>Subjects</h2>
+<div class="subject-cards">
+  <div class="card"><i class="fa-solid fa-square-root-alt fa-2x"></i><h3>Mathematics</h3><p>Complex problems and fun exercises are waiting for you.</p></div>
+  <div class="card"><i class="fa-solid fa-book-open fa-2x"></i><h3>English</h3><p>Improve your reading, grammar, and conversation skills.</p></div>
+</div>
+</section>
+
+<section id="game" class="game">
+<h2>Mini Game</h2>
+<p>Before starting, choose a subject:</p>
+<button class="btn" id="chooseMath">Mathematics</button>
+<button class="btn" id="chooseEnglish">English</button>
+</section>
+
+<footer>
+<p>&copy; 2025 Nikga VIP. All rights reserved.</p>
+</footer>
+
+<button id="topBtn">↑</button>
+
+<div class="game-popup" id="gamePopup">
+<h2 id="questionText">Question</h2>
+<div id="answersContainer"></div>
+<p id="gameResult" style="margin-top:1rem;font-weight:bold;"></p>
+<button id="closeGameBtn" class="btn">Exit</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script>
+// Navbar burger
+const burger=document.querySelector('.burger');
+const nav=document.querySelector('.nav-links');
+burger.addEventListener('click',()=>nav.classList.toggle('active'));
+
+// Scroll animations
+const sections=document.querySelectorAll('section');
+const topBtn=document.getElementById('topBtn');
+window.addEventListener('scroll',()=>{
+  sections.forEach(sec=>{
+    const top=sec.getBoundingClientRect().top;
+    const height=window.innerHeight;
+    if(top<height-100) sec.classList.add('show');
+  });
+  topBtn.style.display=window.scrollY>300?'block':'none';
+});
+topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+
+// Gradient Theme toggle
+const themeBtn=document.getElementById('themeBtn');
+themeBtn.addEventListener('click',()=>document.body.classList.toggle('gradient-theme'));
+
+// Typing effect for Hero
+const h1Text = "Hello, I am Kuandikov Xursand!";
+const h1Element = document.querySelector('.hero h1');
+let i = 0;
+function typeWriter(){
+  if(i<h1Text.length){
+    h1Element.innerHTML += h1Text.charAt(i);
+    i++;
+    setTimeout(typeWriter,100);
+  } else {
+    document.querySelector('.hero p').style.opacity = 1;
+  }
+}
+typeWriter();
+
+// About text animation
+const aboutText = document.getElementById('aboutText');
+const words = aboutText.innerText.split(' ');
+aboutText.innerHTML = '';
+words.forEach((word,index)=>{
+  const span = document.createElement('span');
+  span.innerText = word + ' ';
+  span.style.opacity = 0;
+  span.style.transition = `opacity 0.5s ease ${index*0.3}s`;
+  aboutText.appendChild(span);
+});
+window.addEventListener('scroll',()=>{
+  const rect = aboutText.getBoundingClientRect();
+  if(rect.top < window.innerHeight-100){
+    const spans = aboutText.querySelectorAll('span');
+    spans.forEach(span=>span.style.opacity = 1);
+  }
+});
+
+// Mini Game
+const mathQuestions=[{q:"Solve: 15 ÷ 3 + 4 * 2 = ?",a:["15","14","16"],correct:"15"},
+                     {q:"What is the square root of 81?",a:["9","8","7"],correct:"9"},
+                     {q:"Simplify: 7*3 - 5 =",a:["16","18","19"],correct:"16"}];
+const englishQuestions=[{q:"Translate 'Salom' to English:",a:["Hello","Hi","Bye"],correct:"Hello"},
+                        {q:"Choose the correct: I ___ to school yesterday.",a:["go","went","gone"],correct:"went"},
+                        {q:"Translate 'Kitob' to English:",a:["Book","Pen","Table"],correct:"Book"}];
+
+let questions=[],currentQuestion=0;
+const gamePopup=document.getElementById('gamePopup');
+const questionText=document.getElementById('questionText');
+const answersContainer=document.getElementById('answersContainer');
+const gameResult=document.getElementById('gameResult');
+const closeGameBtn=document.getElementById('closeGameBtn');
+
+document.getElementById('chooseMath').addEventListener('click',()=>startGame(mathQuestions));
+document.getElementById('chooseEnglish').addEventListener('click',()=>startGame(englishQuestions));
+closeGameBtn.addEventListener('click',()=>gamePopup.classList.remove('active'));
+
+function startGame(arr){
+  questions=arr; currentQuestion=0; gamePopup.classList.add('active'); showQuestion();
+}
+
+function showQuestion(){
+  gameResult.innerText="";
+  if(currentQuestion>=questions.length){
+    questionText.innerText="Game Over! 🎉";
+    answersContainer.innerHTML="";
+    return;
+  }
+  const q=questions[currentQuestion];
+  questionText.innerText=q.q;
+  answersContainer.innerHTML="";
+  q.a.forEach(ans=>{
+    const btn=document.createElement('button');
+    btn.className="btn";
+    btn.innerText=ans;
+    btn.onclick=()=>checkAnswer(ans);
+    answersContainer.appendChild(btn);
+  });
+}
+
+function checkAnswer(ans){
+  const correct=questions[currentQuestion].correct;
+  gameResult.innerText=ans===correct?"Correct! 🎉":"Wrong ❌";
+  currentQuestion++;
+  setTimeout(showQuestion,800);
+}
+
+// Particles.js
+particlesJS("particles-js", {
+  "particles": {
+    "number": {"value":60,"density":{"enable":true,"value_area":800}},
+    "color":{"value":"#ffffff"},
+    "shape":{"type":"circle"},
+    "opacity":{"value":0.5,"random":true},
+    "size":{"value":3,"random":true},
+    "line_linked":{"enable":true,"distance":150,"color":"#ffffff","opacity":0.4,"width":1},
+    "move":{"enable":true,"speed":2,"direction":"none","random":false,"straight":false,"out_mode":"out"}
+  },
+  "interactivity":{"detect_on":"canvas","events":{"onhover":{"enable":true,"mode":"grab"}}},
+  "retina_detect":true
+});
+</script>
+</body>
+</html>
