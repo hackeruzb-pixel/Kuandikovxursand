@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
+/* ===== Reset & Global ===== */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;scroll-behavior:smooth;}
 body{line-height:1.6;color:#fff;background:#000;transition:0.5s;}
 a{text-decoration:none;color:inherit;}
@@ -24,27 +25,12 @@ header{width:100%;background:#1a1a2e;position:fixed;top:0;z-index:100;transition
 .hero h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
-    margin-left: 20px;       /* chapga siljitish */
-    white-space: pre-wrap;   /* matn bir qatordan oshsa keyingi qatorga tushadi */
-    word-wrap: break-word;   /* uzun so‘zlarni bo‘lib chiqaradi */
-    overflow: visible;       /* hech narsa kesilmaydi */
-    line-height: 1.2;        /* satr balandligi */
+    margin-left: 20px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: visible;
+    line-height: 1.2;
 }
-
-/* Responsiv uchun */
-@media (max-width:768px){
-    .hero h1 {
-        font-size: 2rem;
-        margin-left: 15px;
-    }
-}
-@media (max-width:480px){
-    .hero h1 {
-        font-size: 1.6rem;
-        margin-left: 10px;
-    }
-}
-
 .hero p{font-size:1.2rem;margin-bottom:2rem;opacity:0;transition:opacity 1s ease-in-out;}
 .btn{display:inline-block;padding:0.8rem 2rem;background:linear-gradient(45deg,#ff512f,#dd2476);color:#fff;border-radius:50px;font-weight:600;transition:0.3s;box-shadow:0 5px 15px rgba(0,0,0,0.3);cursor:pointer;}
 .btn:hover{background:linear-gradient(45deg,#dd2476,#ff512f);transform:translateY(-3px);}
@@ -88,6 +74,7 @@ footer{background:#1a1a2e;color:#fff;text-align:center;padding:1rem;transition:0
   color:#f8f9fa;
   box-shadow:0 5px 15px rgba(0,0,0,0.3);
 }
+
 /* MEDIA QUERIES */
 @media (max-width:992px){
 .hero h1{font-size:2.5rem;}
@@ -111,9 +98,38 @@ footer{background:#1a1a2e;color:#fff;text-align:center;padding:1rem;transition:0
 .game-popup.active{display:flex;}
 .game-popup button{margin-top:1rem;cursor:pointer;}
 
+/* ===== Loading Screen ===== */
+#loading {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #333;
+  border-top: 6px solid #ff512f;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg);}
+  100% { transform: rotate(360deg);}
+}
 </style>
 </head>
 <body>
+
+<!-- Loading Screen -->
+<div id="loading">
+  <div class="spinner"></div>
+</div>
+
 <header>
 <nav class="navbar">
   <div class="logo">Xursand</div>
@@ -139,12 +155,14 @@ footer{background:#1a1a2e;color:#fff;text-align:center;padding:1rem;transition:0
 
 <section id="about" class="about">
 <h2>About</h2>
-<p id="aboutText">    Welcome to my personal learning hub! This website is created to inspire curiosity and support interactive education.  
-    Here, you can explore your favorite subjects, solve challenging problems, and strengthen your skills through engaging exercises.  
-    Each section is carefully designed to provide both educational content and fun activities.  
-    From mathematics to languages, you will find lessons, mini-games, and resources that make learning exciting.  
-    The goal is to combine knowledge with enjoyment, helping you grow academically while keeping the process interactive and motivating.  
-    Dive in, challenge yourself, and discover new ways to learn every day!</p>
+<p id="aboutText">
+Welcome to my personal learning hub! This website is created to inspire curiosity and support interactive education.
+Here, you can explore your favorite subjects, solve challenging problems, and strengthen your skills through engaging exercises.
+Each section is carefully designed to provide both educational content and fun activities.
+From mathematics to languages, you will find lessons, mini-games, and resources that make learning exciting.
+The goal is to combine knowledge with enjoyment, helping you grow academically while keeping the process interactive and motivating.
+Dive in, challenge yourself, and discover new ways to learn every day!
+</p>
 </section>
 
 <section id="subjects" class="subjects">
@@ -163,7 +181,7 @@ footer{background:#1a1a2e;color:#fff;text-align:center;padding:1rem;transition:0
 </section>
 
 <footer>
-<p>&copy; 2025 Nikga VIP. All rights reserved.</p>
+<p>&copy; 2025 djChingiz. All rights reserved.</p>
 </footer>
 
 <button id="topBtn">↑</button>
@@ -177,12 +195,20 @@ footer{background:#1a1a2e;color:#fff;text-align:center;padding:1rem;transition:0
 
 <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
 <script>
-// Navbar burger
+// ===== Loading Screen =====
+window.addEventListener('load', () => {
+  const loading = document.getElementById('loading');
+  loading.style.opacity = '0';
+  loading.style.transition = 'opacity 0.5s ease';
+  setTimeout(() => loading.style.display = 'none', 500);
+});
+
+// ===== Navbar burger =====
 const burger=document.querySelector('.burger');
 const nav=document.querySelector('.nav-links');
 burger.addEventListener('click',()=>nav.classList.toggle('active'));
 
-// Scroll animations
+// ===== Scroll animations =====
 const sections=document.querySelectorAll('section');
 const topBtn=document.getElementById('topBtn');
 window.addEventListener('scroll',()=>{
@@ -195,11 +221,11 @@ window.addEventListener('scroll',()=>{
 });
 topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
-// Gradient Theme toggle
+// ===== Gradient Theme toggle =====
 const themeBtn=document.getElementById('themeBtn');
 themeBtn.addEventListener('click',()=>document.body.classList.toggle('gradient-theme'));
 
-// Typing effect for Hero
+// ===== Typing effect for Hero =====
 const h1Text = "Hello, I am Kuandikov Xursand!";
 const h1Element = document.querySelector('.hero h1');
 let i = 0;
@@ -214,7 +240,7 @@ function typeWriter(){
 }
 typeWriter();
 
-// About text animation
+// ===== About text animation =====
 const aboutText = document.getElementById('aboutText');
 const words = aboutText.innerText.split(' ');
 aboutText.innerHTML = '';
@@ -233,13 +259,31 @@ window.addEventListener('scroll',()=>{
   }
 });
 
-// Mini Game
-const mathQuestions=[{q:"Solve: 15 ÷ 3 + 4 * 2 = ?",a:["15","14","16"],correct:"15"},
-                     {q:"What is the square root of 81?",a:["9","8","7"],correct:"9"},
-                     {q:"Simplify: 7*3 - 5 =",a:["16","18","19"],correct:"16"}];
-const englishQuestions=[{q:"Translate 'Salom' to English:",a:["Hello","Hi","Bye"],correct:"Hello"},
-                        {q:"Choose the correct: I ___ to school yesterday.",a:["go","went","gone"],correct:"went"},
-                        {q:"Translate 'Kitob' to English:",a:["Book","Pen","Table"],correct:"Book"}];
+// ===== Mini Game =====
+const mathQuestions = [
+  {q: "Solve: 15 ÷ 3 + 4 * 2 = ?", a: ["15", "14", "16"], correct: "15"},
+  {q: "What is the square root of 81?", a: ["9", "8", "7"], correct: "9"},
+  {q: "Simplify: 7*3 - 5 =", a: ["16", "18", "19"], correct: "16"},
+  {q: "Calculate: (12 + 8) ÷ 4 =", a: ["5", "4", "6"], correct: "5"},
+  {q: "What is 25% of 200?", a: ["50", "40", "45"], correct: "50"},
+  {q: "Solve: 3^3 =", a: ["9", "27", "18"], correct: "27"},
+  {q: "If x + 5 = 12, what is x?", a: ["6", "7", "5"], correct: "7"},
+  {q: "Simplify: 2(3 + 4) - 5 =", a: ["9", "11", "8"], correct: "9"},
+  {q: "What is the factorial of 4 (4!)?", a: ["24", "12", "16"], correct: "24"},
+  {q: "Convert 0.75 to fraction", a: ["3/4", "1/2", "2/3"], correct: "3/4"}
+];
+const englishQuestions = [
+  {q: "Translate 'Salom' to English:", a: ["Hello", "Hi", "Bye"], correct: "Hello"},
+  {q: "Choose the correct: I ___ to school yesterday.", a: ["go", "went", "gone"], correct: "went"},
+  {q: "Translate 'Kitob' to English:", a: ["Book", "Pen", "Table"], correct: "Book"},
+  {q: "Choose the correct: She ___ a great singer.", a: ["is", "are", "am"], correct: "is"},
+  {q: "What is the synonym of 'happy'?", a: ["Sad", "Joyful", "Angry"], correct: "Joyful"},
+  {q: "Fill in the blank: I have ___ apple.", a: ["an", "a", "the"], correct: "an"},
+  {q: "Translate 'Uy' to English:", a: ["House", "Car", "Tree"], correct: "House"},
+  {q: "Choose correct past tense: He ___ football yesterday.", a: ["play", "played", "plays"], correct: "played"},
+  {q: "What is the antonym of 'fast'?", a: ["Quick", "Slow", "Rapid"], correct: "Slow"},
+  {q: "Fill in the blank: They ___ going to the park now.", a: ["is", "are", "am"], correct: "are"}
+];
 
 let questions=[],currentQuestion=0;
 const gamePopup=document.getElementById('gamePopup');
@@ -282,7 +326,7 @@ function checkAnswer(ans){
   setTimeout(showQuestion,800);
 }
 
-// Particles.js
+// ===== Particles.js =====
 particlesJS("particles-js", {
   "particles": {
     "number": {"value":60,"density":{"enable":true,"value_area":800}},
